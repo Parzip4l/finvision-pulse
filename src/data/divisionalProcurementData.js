@@ -1,5 +1,5 @@
-
-{
+// --- DATA BARU PER DIVISI (DARI USER) ---
+export const divisionalProcurementData = {
   "data": [
     {
       "divisi": "Sekretaris Perusahaan (SPR)",
@@ -17,13 +17,7 @@
         {"nama": "OKTOBER", "hps": 0, "komitmen_po": 0, "pr": 0},
         {"nama": "NOVEMBER", "hps": 0, "komitmen_po": 0, "pr": 0},
         {"nama": "DESEMBER", "hps": 0, "komitmen_po": 0, "pr": 0}
-      ],
-      "grand_total": {
-        "hps": 1612518842,
-        "komitmen_po": 1528776314,
-        "pr": 9,
-        "selisih_hps": 83742528
-      }
+      ]
     },
     {
       "divisi": "Quality, Safety, Security, Health & Environtment (MSL)",
@@ -41,13 +35,7 @@
         {"nama": "OKTOBER", "hps": 438664434, "komitmen_po": 370292231, "pr": 7},
         {"nama": "NOVEMBER", "hps": 0, "komitmen_po": 0, "pr": 0},
         {"nama": "DESEMBER", "hps": 0, "komitmen_po": 0, "pr": 0}
-      ],
-      "grand_total": {
-        "hps": 37373213362,
-        "komitmen_po": 35787524903,
-        "pr": 41,
-        "selisih_hps": 1585688459
-      }
+      ]
     },
     {
       "divisi": "Internal Audit (AIT)",
@@ -65,13 +53,7 @@
         {"nama": "OKTOBER", "hps": 0, "komitmen_po": 0, "pr": 0},
         {"nama": "NOVEMBER", "hps": 0, "komitmen_po": 0, "pr": 0},
         {"nama": "DESEMBER", "hps": 0, "komitmen_po": 0, "pr": 0}
-      ],
-      "grand_total": {
-        "hps": 0,
-        "komitmen_po": 0,
-        "pr": 0,
-        "selisih_hps": 0
-      }
+      ]
     },
     {
       "divisi": "Divisi Strategi Perusahaan dan Manajemen Risiko (SMR)",
@@ -89,13 +71,7 @@
         {"nama": "OKTOBER", "hps": 0, "komitmen_po": 0, "pr": 0},
         {"nama": "NOVEMBER", "hps": 0, "komitmen_po": 0, "pr": 0},
         {"nama": "DESEMBER", "hps": 0, "komitmen_po": 0, "pr": 0}
-      ],
-      "grand_total": {
-        "hps": 1699914046,
-        "komitmen_po": 1274188425,
-        "pr": 4,
-        "selisih_hps": 425725621
-      }
+      ]
     },
     {
       "divisi": "SDM dan Bagian Umum (SDM)",
@@ -113,13 +89,7 @@
         {"nama": "OKTOBER", "hps": 10354199919, "komitmen_po": 9663337389, "pr": 13},
         {"nama": "NOVEMBER", "hps": 0, "komitmen_po": 0, "pr": 0},
         {"nama": "DESEMBER", "hps": 0, "komitmen_po": 0, "pr": 0}
-      ],
-      "grand_total": {
-        "hps": 22605669509,
-        "komitmen_po": 20957351406,
-        "pr": 56,
-        "selisih_hps": 1648318103
-      }
+      ]
     },
     {
       "divisi": "Keuangan dan Akuntansi (KAD)",
@@ -137,13 +107,7 @@
         {"nama": "OKTOBER", "hps": 0, "komitmen_po": 0, "pr": 0},
         {"nama": "NOVEMBER", "hps": 0, "komitmen_po": 0, "pr": 0},
         {"nama": "DESEMBER", "hps": 0, "komitmen_po": 0, "pr": 0}
-      ],
-      "grand_total": {
-        "hps": 0,
-        "komitmen_po": 0,
-        "pr": 0,
-        "selisih_hps": 0
-      }
+      ]
     },
     {
       "divisi": "Manajemen Rantai Pasok (SCM)",
@@ -161,13 +125,7 @@
         {"nama": "OKTOBER", "hps": 638176982, "komitmen_po": 632213292, "pr": 3},
         {"nama": "NOVEMBER", "hps": 0, "komitmen_po": 0, "pr": 0},
         {"nama": "DESEMBER", "hps": 0, "komitmen_po": 0, "pr": 0}
-      ],
-      "grand_total": {
-        "hps": 1031056982,
-        "komitmen_po": 1013082042,
-        "pr": 5,
-        "selisih_hps": 17974940
-      }
+      ]
     },
     {
       "divisi": "Teknologi dan Informasi (MIT)",
@@ -185,13 +143,7 @@
         {"nama": "OKTOBER", "hps": 4535154003, "komitmen_po": 4189793844, "pr": 7},
         {"nama": "NOVEMBER", "hps": 0, "komitmen_po": 0, "pr": 0},
         {"nama": "DESEMBER", "hps": 0, "komitmen_po": 0, "pr": 0}
-      ],
-      "grand_total": {
-        "hps": 13791117201,
-        "komitmen_po": 12251429278,
-        "pr": 33,
-        "selisih_hps": 1539687923
-      }
+      ]
     },
     {
       "divisi": "Pengembangan Bisnis (BDV)",
@@ -209,13 +161,7 @@
         {"nama": "OKTOBER", "hps": 0, "komitmen_po": 0, "pr": 0},
         {"nama": "NOVEMBER", "hps": 0, "komitmen_po": 0, "pr": 0},
         {"nama": "DESEMBER", "hps": 0, "komitmen_po": 0, "pr": 0}
-      ],
-      "grand_total": {
-        "hps": 11820619264,
-        "komitmen_po": 11231985106,
-        "pr": 9,
-        "selisih_hps": 588634158
-      }
+      ]
     },
     {
       "divisi": "Operasi dan Pelayanan (OPL)",
@@ -233,13 +179,7 @@
         {"nama": "OKTOBER", "hps": 14985000, "komitmen_po": 10378500, "pr": 1},
         {"nama": "NOVEMBER", "hps": 0, "komitmen_po": 0, "pr": 0},
         {"nama": "DESEMBER", "hps": 0, "komitmen_po": 0, "pr": 0}
-      ],
-      "grand_total": {
-        "hps": 15353494256,
-        "komitmen_po": 15241134141,
-        "pr": 15,
-        "selisih_hps": 112360115
-      }
+      ]
     },
     {
       "divisi": "Prasarana (PRS)",
@@ -257,13 +197,7 @@
         {"nama": "OKTOBER", "hps": 5264340370, "komitmen_po": 4918139156, "pr": 11},
         {"nama": "NOVEMBER", "hps": 0, "komitmen_po": 0, "pr": 0},
         {"nama": "DESEMBER", "hps": 0, "komitmen_po": 0, "pr": 0}
-      ],
-      "grand_total": {
-        "hps": 64402991176,
-        "komitmen_po": 59872857322,
-        "pr": 74,
-        "selisih_hps": 4530133854
-      }
+      ]
     },
     {
       "divisi": "Sarana (SAR)",
@@ -281,13 +215,7 @@
         {"nama": "OKTOBER", "hps": 3828004084, "komitmen_po": 1133652780, "pr": 4},
         {"nama": "NOVEMBER", "hps": 0, "komitmen_po": 0, "pr": 0},
         {"nama": "DESEMBER", "hps": 0, "komitmen_po": 0, "pr": 0}
-      ],
-      "grand_total": {
-        "hps": 29547692433,
-        "komitmen_po": 19757902910,
-        "pr": 40,
-        "selisih_hps": 9789789523
-      }
+      ]
     }
   ]
-}
+};
