@@ -1,129 +1,159 @@
 import { DollarSign, TrendingUp, Wallet, ShoppingCart, Target } from "lucide-react";
-import { KPICard } from "@/components/dashboard/KPICard";
-import { FilterBar } from "@/components/dashboard/FilterBar";
-import { ProcurementChart } from "@/components/dashboard/ProcurementChart";
-import { BudgetDonutCharts } from "@/components/dashboard/BudgetDonutCharts";
-import { OngoingProjectsTable } from "@/components/dashboard/OngoingProjectsTable";
-import { BudgetAnalysisTable } from "@/components/dashboard/BudgetAnalysisTable";
-import { HPSAnalysisTable } from "@/components/dashboard/HPSAnalysisTable";
+import { CompactKPICard } from "@/components/dashboard/CompactKPICard";
+import { CompactProcurementChart } from "@/components/dashboard/CompactProcurementChart";
+import { CompactDonutCharts } from "@/components/dashboard/CompactDonutCharts";
+import { CompactOngoingTable } from "@/components/dashboard/CompactOngoingTable";
+import { CompactBudgetTable } from "@/components/dashboard/CompactBudgetTable";
+import { AutoCarousel } from "@/components/dashboard/AutoCarousel";
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="glass-header sticky top-0 z-50 px-6 py-4">
-        <div className="max-w-[1600px] mx-auto">
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-2xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-                Executive Financial Dashboard
-              </h1>
-              <p className="text-sm text-muted-foreground mt-1">
-                Budget & Procurement Analytics Platform
-              </p>
-            </div>
-            <div className="flex items-center gap-4">
-              <div className="text-right">
-                <p className="text-sm text-muted-foreground">Last Updated</p>
-                <p className="text-sm font-semibold">Nov 1, 2025 14:30</p>
-              </div>
-            </div>
+    <div className="h-screen w-screen overflow-hidden bg-background flex flex-col">
+      {/* Compact Header */}
+      <header className="glass-header px-4 py-2 border-b border-white/10">
+        <div className="flex items-center justify-between">
+          <div>
+            <h1 className="text-base font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+              Executive Financial Dashboard
+            </h1>
+            <p className="text-[9px] text-muted-foreground">YTD • All Divisions • Nov 1, 2025</p>
+          </div>
+          <div className="text-right">
+            <p className="text-[9px] text-muted-foreground">Last Update</p>
+            <p className="text-[10px] font-semibold">14:30</p>
           </div>
         </div>
       </header>
 
-      {/* Main Content */}
-      <main className="max-w-[1600px] mx-auto px-6 py-8">
-        {/* Section A: Filters & KPIs */}
-        <section className="mb-8">
-          <FilterBar />
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
-            <KPICard
-              title="Total Budget (YTD)"
-              value="IDR 214.9B"
-              icon={DollarSign}
-              color="primary"
-            />
-            <KPICard
-              title="Total Absorption (YTD)"
-              value="IDR 146.8B"
-              subtitle="68.3% absorbed"
-              percentage={12.5}
-              trend="up"
-              icon={TrendingUp}
-              color="success"
-            />
-            <KPICard
-              title="Remaining Budget"
-              value="IDR 68.1B"
-              subtitle="31.7% remaining"
-              icon={Wallet}
-              color="warning"
-            />
-            <KPICard
-              title="Total PO Value (YTD)"
-              value="IDR 128.4B"
-              percentage={8.3}
-              trend="up"
-              icon={ShoppingCart}
-              color="primary"
-            />
-            <KPICard
-              title="Procurement Efficiency"
-              value="12.8%"
-              subtitle="HPS vs PO savings"
-              percentage={2.1}
-              trend="up"
-              icon={Target}
-              color="success"
-            />
-          </div>
-        </section>
+      {/* Main Content - Fixed Height, No Scroll */}
+      <main className="flex-1 px-4 py-3 overflow-hidden">
+        <div className="h-full grid grid-cols-12 gap-3">
+          {/* Left Column - KPIs & Summary */}
+          <div className="col-span-3 flex flex-col gap-3">
+            {/* KPI Cards */}
+            <div className="space-y-2">
+              <CompactKPICard
+                title="Total Budget"
+                value="214.9B"
+                icon={DollarSign}
+                color="primary"
+              />
+              <CompactKPICard
+                title="Absorption"
+                value="68.3%"
+                subtitle="146.8B absorbed"
+                icon={TrendingUp}
+                color="success"
+              />
+              <CompactKPICard
+                title="Remaining"
+                value="68.1B"
+                icon={Wallet}
+                color="warning"
+              />
+              <CompactKPICard
+                title="PO Value"
+                value="128.4B"
+                icon={ShoppingCart}
+                color="primary"
+              />
+              <CompactKPICard
+                title="Efficiency"
+                value="12.8%"
+                subtitle="HPS vs PO"
+                icon={Target}
+                color="success"
+              />
+            </div>
 
-        {/* Section B: Procurement Analysis */}
-        <section className="mb-8">
-          <h2 className="text-2xl font-bold mb-6">Procurement Analysis</h2>
-          <div className="space-y-6">
-            <ProcurementChart />
-            <HPSAnalysisTable />
-            <div className="glass-card p-6">
-              <h3 className="text-xl font-bold mb-4">Annual Summary</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="p-6 rounded-xl bg-gradient-to-br from-primary/20 to-primary/5 border border-primary/20">
-                  <p className="text-sm font-medium text-muted-foreground mb-2">Total HPS (Annual)</p>
-                  <p className="text-3xl font-bold text-primary">IDR 147.2B</p>
+            {/* Budget Overview */}
+            <div className="glass-card p-3 flex-1">
+              <h3 className="text-xs font-bold mb-2">Budget Overview</h3>
+              <CompactDonutCharts />
+            </div>
+          </div>
+
+          {/* Middle Column - Charts & Procurement */}
+          <div className="col-span-5 flex flex-col gap-3">
+            {/* HPS vs PO Chart */}
+            <div className="glass-card p-3 h-[calc(50%-6px)]">
+              <h3 className="text-xs font-bold mb-1">HPS vs PO Trend (Monthly)</h3>
+              <div className="h-[calc(100%-24px)]">
+                <CompactProcurementChart />
+              </div>
+            </div>
+
+            {/* Procurement Summary */}
+            <div className="glass-card p-3 h-[calc(50%-6px)]">
+              <h3 className="text-xs font-bold mb-2">Annual Procurement Summary</h3>
+              <div className="grid grid-cols-2 gap-3 mb-3">
+                <div className="p-3 rounded-lg bg-gradient-to-br from-primary/20 to-primary/5 border border-primary/20">
+                  <p className="text-[9px] text-muted-foreground mb-1">Total HPS</p>
+                  <p className="text-xl font-bold text-primary">147.2B</p>
                 </div>
-                <div className="p-6 rounded-xl bg-gradient-to-br from-success/20 to-success/5 border border-success/20">
-                  <p className="text-sm font-medium text-muted-foreground mb-2">Total PO (Annual)</p>
-                  <p className="text-3xl font-bold text-success">IDR 128.4B</p>
+                <div className="p-3 rounded-lg bg-gradient-to-br from-success/20 to-success/5 border border-success/20">
+                  <p className="text-[9px] text-muted-foreground mb-1">Total PO</p>
+                  <p className="text-xl font-bold text-success">128.4B</p>
                 </div>
+              </div>
+              <div className="p-3 rounded-lg bg-gradient-to-br from-chart-3/20 to-chart-3/5 border border-chart-3/20">
+                <p className="text-[9px] text-muted-foreground mb-1">Savings Achieved</p>
+                <p className="text-2xl font-bold" style={{ color: "hsl(var(--chart-3))" }}>18.8B</p>
+                <p className="text-[9px] text-muted-foreground">12.8% efficiency gain</p>
               </div>
             </div>
           </div>
-        </section>
 
-        {/* Section C: Ongoing Projects */}
-        <section className="mb-8">
-          <h2 className="text-2xl font-bold mb-6">Ongoing Project Monitoring</h2>
-          <OngoingProjectsTable />
-        </section>
+          {/* Right Column - Tables with Auto Carousel */}
+          <div className="col-span-4 glass-card p-3">
+            <h3 className="text-xs font-bold mb-2">Project & Budget Analysis</h3>
+            <div className="h-[calc(100%-32px)]">
+              <AutoCarousel intervalMs={6000}>
+                {/* Slide 1: Ongoing Projects */}
+                <div className="w-full h-full flex flex-col">
+                  <h4 className="text-[10px] font-semibold text-primary mb-2">Ongoing Projects</h4>
+                  <CompactOngoingTable />
+                </div>
 
-        {/* Section D: Budget Analysis */}
-        <section className="mb-8">
-          <h2 className="text-2xl font-bold mb-6">Detailed Budget Analysis</h2>
-          <div className="space-y-6">
-            <BudgetDonutCharts />
-            <BudgetAnalysisTable />
+                {/* Slide 2: Budget Analysis */}
+                <div className="w-full h-full flex flex-col">
+                  <h4 className="text-[10px] font-semibold text-success mb-2">Budget by Division</h4>
+                  <CompactBudgetTable />
+                </div>
+
+                {/* Slide 3: Key Metrics Summary */}
+                <div className="w-full h-full flex flex-col justify-center space-y-3 px-4">
+                  <h4 className="text-[10px] font-semibold text-center mb-2">Key Highlights</h4>
+                  
+                  <div className="p-3 rounded-lg bg-gradient-to-br from-primary/10 to-transparent border border-primary/20">
+                    <p className="text-[9px] text-muted-foreground mb-1">Highest Absorption</p>
+                    <p className="text-lg font-bold text-primary">Technology</p>
+                    <p className="text-[10px] text-muted-foreground">71.9% • 41B absorbed</p>
+                  </div>
+
+                  <div className="p-3 rounded-lg bg-gradient-to-br from-warning/10 to-transparent border border-warning/20">
+                    <p className="text-[9px] text-muted-foreground mb-1">Needs Attention</p>
+                    <p className="text-lg font-bold text-warning">Marketing</p>
+                    <p className="text-[10px] text-muted-foreground">8 projects delayed</p>
+                  </div>
+
+                  <div className="p-3 rounded-lg bg-gradient-to-br from-success/10 to-transparent border border-success/20">
+                    <p className="text-[9px] text-muted-foreground mb-1">Total Active Projects</p>
+                    <p className="text-2xl font-bold text-success">52</p>
+                    <p className="text-[10px] text-muted-foreground">Across all divisions</p>
+                  </div>
+                </div>
+              </AutoCarousel>
+            </div>
           </div>
-        </section>
+        </div>
       </main>
 
-      {/* Footer */}
-      <footer className="border-t border-border mt-16 py-8">
-        <div className="max-w-[1600px] mx-auto px-6 text-center text-sm text-muted-foreground">
-          <p>© 2025 Financial Analytics Platform. All rights reserved.</p>
-        </div>
+      {/* Compact Footer */}
+      <footer className="border-t border-border px-4 py-1">
+        <p className="text-[8px] text-center text-muted-foreground">
+          © 2025 Financial Analytics Platform • Real-time Data Dashboard
+        </p>
       </footer>
     </div>
   );
