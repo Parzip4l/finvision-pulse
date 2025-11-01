@@ -246,7 +246,7 @@ const InteractiveProcurementChart = ({ isLight, totalData, divisionalData }) => 
             {/* Chart Area */}
             <div className="flex-1 min-h-0">
                 <ResponsiveContainer width="100%" height="100%">
-                    <LineChart data={currentView.data} margin={{ top: 5, right: 20, left: -20, bottom: 0 }}>
+                    <LineChart data={currentView.data} margin={{ top: 5, right: -30, left: -20, bottom: 0 }}>
                         <CartesianGrid strokeDasharray="3 3" stroke={gridColor} />
                         <XAxis dataKey="bulan" fontSize={10} tick={{ fill: textColor }} axisLine={{ stroke: gridColor }} tickLine={{ stroke: gridColor }} />
                         <YAxis 
@@ -270,7 +270,6 @@ const InteractiveProcurementChart = ({ isLight, totalData, divisionalData }) => 
                                 if (name === 'PR') {
                                     return [value, 'PR (Count)'];
                                 }
-                                // Ganti key "komitmen_po" menjadi label "PO"
                                 const label = name === 'komitmen_po' ? 'PO' : name;
                                 return [formatCurrency(value), label];
                             }}
@@ -288,7 +287,6 @@ const InteractiveProcurementChart = ({ isLight, totalData, divisionalData }) => 
                                 return value;
                             }}
                         />
-                        {/* Ganti dataKey ke lowercase */}
                         <Line yAxisId="left" type="monotone" dataKey="hps" name="HPS" stroke="#D3242B" strokeWidth={2} dot={false} activeDot={{ r: 4 }} />
                         <Line yAxisId="left" type="monotone" dataKey="komitmen_po" name="komitmen_po" stroke="#F6821F" strokeWidth={2} dot={false} activeDot={{ r: 4 }} />
                         <Line 
@@ -310,34 +308,102 @@ const InteractiveProcurementChart = ({ isLight, totalData, divisionalData }) => 
 
 const SavingsValueChart = ({ isLight, chartData }) => {
   if (!chartData || chartData.length === 0) {
-    return <NoDataCard isLight={isLight} title="Analisis Penghematan (Nilai)" icon={Award} message="Data bulanan tidak tersedia" />;
+    return (
+      <NoDataCard
+        isLight={isLight}
+        title="Analisis Penghematan (Nilai)"
+        icon={Award}
+        message="Data bulanan tidak tersedia"
+      />
+    );
   }
-  
-  const gridColor = isLight ? '#e2e8f0' : '#334155';
-  const textColor = isLight ? '#475569' : '#94a3b8';
+
+  const gridColor = isLight ? "#e2e8f0" : "#334155";
+  const textColor = isLight ? "#475569" : "#94a3b8";
+
+  const monthMap = {
+    Januari: "Jan",
+    Februari: "Feb",
+    Maret: "Mar",
+    April: "Apr",
+    Mei: "Mei",
+    Juni: "Jun",
+    Juli: "Jul",
+    Agustus: "Ags",
+    September: "Sep",
+    Oktober: "Okt",
+    November: "Nov",
+    Desember: "Des",
+  };
+
+  const formattedData = chartData.map((item) => ({
+    ...item,
+    Bulan: monthMap[item.Bulan] || item.Bulan,
+  }));
 
   return (
-    <div className={`rounded-lg p-3 h-full flex flex-col ${isLight ? 'bg-white border border-slate-200 shadow-sm' : 'bg-slate-900 border border-slate-800'}`}>
-      
-      <h2 className={`text-xs font-bold mb-2 uppercase border-b pb-1 flex-shrink-0 flex items-center gap-1.5 ${isLight ? 'text-[#D3242B] border-slate-200' : 'text-[#F6821F] border-slate-800'}`}>
+    <div
+      className={`rounded-lg p-3 h-full flex flex-col ${
+        isLight
+          ? "bg-white border border-slate-200 shadow-sm"
+          : "bg-slate-900 border border-slate-800"
+      }`}
+    >
+      <h2
+        className={`text-xs font-bold mb-2 uppercase border-b pb-1 flex-shrink-0 flex items-center gap-1.5 ${
+          isLight
+            ? "text-[#D3242B] border-slate-200"
+            : "text-[#F6821F] border-slate-800"
+        }`}
+      >
         <Award className="w-3.5 h-3.5" />
         Analisis Penghematan (Nilai)
       </h2>
+
       <div className="flex-1 min-h-0">
         <ResponsiveContainer width="100%" height="100%">
-          <BarChart data={chartData} margin={{ top: 5, right: 20, left: -20, bottom: 5 }}>
+          <BarChart
+            data={formattedData}
+            margin={{ top: 5, right: 20, left: -20, bottom: 5 }}
+          >
             <CartesianGrid strokeDasharray="3 3" stroke={gridColor} />
-            <XAxis dataKey="Bulan" fontSize={10} tick={{ fill: textColor }} axisLine={false} tickLine={false} />
-            <YAxis tickFormatter={formatCurrency} fontSize={10} tick={{ fill: textColor }} axisLine={false} tickLine={false} />
-            <Tooltip 
-              formatter={(v) => formatCurrency(v)} 
-              contentStyle={{ backgroundColor: isLight ? 'white' : '#0f172a', border: `1px solid ${gridColor}`, borderRadius: '6px', fontSize: '12px' }}
+            <XAxis
+              dataKey="Bulan"
+              fontSize={10}
+              tick={{ fill: textColor }}
+              axisLine={false}
+              tickLine={false}
+            />
+            <YAxis
+              tickFormatter={formatCurrency}
+              fontSize={10}
+              tick={{ fill: textColor }}
+              axisLine={false}
+              tickLine={false}
+            />
+            <Tooltip
+              formatter={(v) => formatCurrency(v)}
+              contentStyle={{
+                backgroundColor: isLight ? "white" : "#0f172a",
+                border: `1px solid ${gridColor}`,
+                borderRadius: "6px",
+                fontSize: "12px",
+              }}
               labelStyle={{ color: textColor }}
             />
-            <Legend iconType="circle" iconSize={8} wrapperStyle={{ fontSize: '10px', paddingTop: '10px' }} />
+            <Legend
+              iconType="circle"
+              iconSize={8}
+              wrapperStyle={{ fontSize: "10px", paddingTop: "10px" }}
+            />
             <Bar dataKey="HPS" fill="#3b82f6" name="HPS" radius={[4, 4, 0, 0]} />
             <Bar dataKey="Aktual" fill="#14b8a6" name="Aktual" radius={[4, 4, 0, 0]} />
-            <Bar dataKey="Selisih_HPS" fill="#f97316" name="Selisih HPS" radius={[4, 4, 0, 0]} />
+            <Bar
+              dataKey="Selisih_HPS"
+              fill="#f97316"
+              name="Selisih HPS"
+              radius={[4, 4, 0, 0]}
+            />
           </BarChart>
         </ResponsiveContainer>
       </div>
@@ -345,41 +411,122 @@ const SavingsValueChart = ({ isLight, chartData }) => {
   );
 };
 
+
 const SavingsPercentageChart = ({ isLight, chartData }) => {
   if (!chartData || chartData.length === 0) {
-    return <NoDataCard isLight={isLight} title="Analisis Penghematan (%)" icon={TrendingUp} message="Data bulanan tidak tersedia" />;
+    return (
+      <NoDataCard
+        isLight={isLight}
+        title="Analisis Penghematan (%)"
+        icon={TrendingUp}
+        message="Data bulanan tidak tersedia"
+      />
+    );
   }
 
   const gridColor = isLight ? '#e2e8f0' : '#334155';
   const textColor = isLight ? '#475569' : '#94a3b8';
 
+  const monthMap = {
+    Januari: "Jan",
+    Februari: "Feb",
+    Maret: "Mar",
+    April: "Apr",
+    Mei: "Mei",
+    Juni: "Jun",
+    Juli: "Jul",
+    Agustus: "Ags",
+    September: "Sep",
+    Oktober: "Okt",
+    November: "Nov",
+    Desember: "Des",
+  };
+
+  const formattedData = chartData.map((item) => ({
+    ...item,
+    Bulan: monthMap[item.Bulan] || item.Bulan,
+  }));
+
   return (
-    <div className={`rounded-lg p-3 h-full flex flex-col ${isLight ? 'bg-white border border-slate-200 shadow-sm' : 'bg-slate-900 border border-slate-800'}`}>
-      
-      <h2 className={`text-xs font-bold mb-2 uppercase border-b pb-1 flex-shrink-0 flex items-center gap-1.5 ${isLight ? 'text-[#D3242B] border-slate-200' : 'text-[#F6821F] border-slate-800'}`}>
+    <div
+      className={`rounded-lg p-3 h-full flex flex-col ${
+        isLight
+          ? 'bg-white border border-slate-200 shadow-sm'
+          : 'bg-slate-900 border border-slate-800'
+      }`}
+    >
+      <h2
+        className={`text-xs font-bold mb-2 uppercase border-b pb-1 flex-shrink-0 flex items-center gap-1.5 ${
+          isLight
+            ? 'text-[#D3242B] border-slate-200'
+            : 'text-[#F6821F] border-slate-800'
+        }`}
+      >
         <TrendingUp className="w-3.5 h-3.5" />
         Analisis Penghematan (%)
       </h2>
+
       <div className="flex-1 min-h-0">
         <ResponsiveContainer width="100%" height="100%">
-          <LineChart data={chartData} margin={{ top: 5, right: 20, left: -20, bottom: 5 }}>
+          <LineChart
+            data={formattedData}
+            margin={{ top: 5, right: 20, left: -20, bottom: 5 }}
+          >
             <CartesianGrid strokeDasharray="3 3" stroke={gridColor} />
-            <XAxis dataKey="Bulan" fontSize={10} tick={{ fill: textColor }} axisLine={false} tickLine={false} />
-            <YAxis unit="%" fontSize={10} tick={{ fill: textColor }} axisLine={false} tickLine={false} />
-            <Tooltip 
-              formatter={(v) => `${v}%`} 
-              contentStyle={{ backgroundColor: isLight ? 'white' : '#0f172a', border: `1px solid ${gridColor}`, borderRadius: '6px', fontSize: '12px' }}
+            <XAxis
+              dataKey="Bulan"
+              fontSize={10}
+              tick={{ fill: textColor }}
+              axisLine={false}
+              tickLine={false}
+            />
+            <YAxis
+              unit="%"
+              fontSize={10}
+              tick={{ fill: textColor }}
+              axisLine={false}
+              tickLine={false}
+            />
+            <Tooltip
+              formatter={(v) => `${v}%`}
+              contentStyle={{
+                backgroundColor: isLight ? 'white' : '#0f172a',
+                border: `1px solid ${gridColor}`,
+                borderRadius: '6px',
+                fontSize: '12px',
+              }}
               labelStyle={{ color: textColor }}
             />
-            <Legend iconType="circle" iconSize={8} wrapperStyle={{ fontSize: '10px', paddingTop: '10px' }} />
-            <Line type="monotone" dataKey="Persen_Saving_HPS_vs_Aktual" stroke="#ef4444" name="% HPS vs Aktual" strokeWidth={2} dot={false} activeDot={{ r: 4 }} />
-            <Line type="monotone" dataKey="Persen_Saving_Penawaran" stroke="#10b981" name="% Saving Penawaran" strokeWidth={2} dot={false} activeDot={{ r: 4 }} />
+            <Legend
+              iconType="circle"
+              iconSize={8}
+              wrapperStyle={{ fontSize: '10px', paddingTop: '10px' }}
+            />
+            <Line
+              type="monotone"
+              dataKey="Persen_Saving_HPS_vs_Aktual"
+              stroke="#ef4444"
+              name="% HPS vs Aktual"
+              strokeWidth={2}
+              dot={false}
+              activeDot={{ r: 4 }}
+            />
+            <Line
+              type="monotone"
+              dataKey="Persen_Saving_Penawaran"
+              stroke="#10b981"
+              name="% Saving Penawaran"
+              strokeWidth={2}
+              dot={false}
+              activeDot={{ r: 4 }}
+            />
           </LineChart>
         </ResponsiveContainer>
       </div>
     </div>
   );
 };
+
 
 export const SavingsSlider = ({ isLight, data }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -475,7 +622,7 @@ const ProcurementStatusChart = ({ isLight, data }) => {
                 <ResponsiveContainer width="100%" height="100%">
                     <BarChart
                         data={chartData}
-                        margin={{ top: 5, right: 20, left: -20, bottom: 50 }}
+                        margin={{ top: 5, right: 20, left: -20, bottom: 10 }}
                     >
                         <CartesianGrid strokeDasharray="3 3" stroke={gridColor} />
                         <XAxis 
@@ -661,7 +808,7 @@ const DepartmentBudgetPerformanceChart = ({ isLight, data }) => {
                     <BarChart
                         layout="vertical"
                         data={currentChartData}
-                        margin={{ top: 5, right: 20, left: -50, bottom: 20 }}
+                        margin={{ top: 5, right: 20, left: -50, bottom: 10 }}
                         barGap={4}
                     >
                         <CartesianGrid strokeDasharray="3 3" stroke={gridColor} />
