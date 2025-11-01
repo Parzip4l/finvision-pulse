@@ -5,25 +5,13 @@ import { CompactDonutCharts } from "@/components/dashboard/CompactDonutCharts";
 import { CompactOngoingTable } from "@/components/dashboard/CompactOngoingTable";
 import { CompactBudgetTable } from "@/components/dashboard/CompactBudgetTable";
 import { AutoCarousel } from "@/components/dashboard/AutoCarousel";
+import { DashboardHeader } from "@/components/dashboard/DashboardHeader";
 
 const Index = () => {
   return (
     <div className="h-screen w-screen overflow-hidden bg-background flex flex-col">
-      {/* Compact Header */}
-      <header className="glass-header px-4 py-2 border-b border-white/10">
-        <div className="flex items-center justify-between">
-          <div>
-            <h1 className="text-base font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-              Executive Financial Dashboard
-            </h1>
-            <p className="text-[9px] text-muted-foreground">YTD • All Divisions • Nov 1, 2025</p>
-          </div>
-          <div className="text-right">
-            <p className="text-[9px] text-muted-foreground">Last Update</p>
-            <p className="text-[10px] font-semibold">14:30</p>
-          </div>
-        </div>
-      </header>
+      {/* Header with LRT Style */}
+      <DashboardHeader />
 
       {/* Main Content - Fixed Height, No Scroll */}
       <main className="flex-1 px-4 py-3 overflow-hidden">
