@@ -942,15 +942,16 @@ const FinanceDashboard = () => {
     const topKpis = [
         { title: "Proposal", value: formatCurrency(kpiProposal), icon: Briefcase, color: isLight ? 'text-slate-900' : 'text-white' },
         { title: "Realokasi", value: formatCurrency(kpiRealokasi), icon: Package, color: isLight ? 'text-slate-900' : 'text-white' },
+         { title: "Realisasi", value: formatCurrency(kpiRealisasi), icon: Wallet, color: 'text-slate-900' }, 
         { title: "% Penyerapan", value: `${kpiPersenPenyerapan}%`, icon: Package, color: 'text-emerald-500' },
         { title: "Sisa Anggaran", value: formatCurrency(kpiSisaAnggaran), icon: Wallet, color: 'text-[#F6821F]' },
+       
     ];
 
     const rightKPI = [
-        { title: "Realisasi", value: formatCurrency(kpiRealisasi), icon: Wallet, color: 'text-slate-900' }, 
         { title: "Capex", value: formatCurrency(capexData), icon: Wallet, color: isLight ? 'text-slate-900' : 'text-white' },
         { title: "Verifikasi", value: formatCurrency(OpexVerif), icon: Wallet, color: isLight ? 'text-slate-900' : 'text-white' },
-        { title: "PPA / SPUK / KK", value: formatCurrency(OpexPPA), icon: Wallet, color: isLight ? 'text-slate-900' : 'text-white' },     
+        { title: "PPA/SPUK/KK", value: formatCurrency(OpexPPA), icon: Wallet, color: isLight ? 'text-slate-900' : 'text-white' },     
     ]
 
     const { realokasi_2025: capexOpexData } = departmentBudgetData.total;
@@ -994,21 +995,106 @@ const FinanceDashboard = () => {
                 </header>
 
                 {/* Top KPI Bar */}
-                <section className={`grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-1 mb-2 flex-shrink-0 rounded-lg p-1 transition-colors ${isLight ? 'bg-white border border-slate-200 shadow-sm' : 'bg-slate-900 border border-slate-800'}`}>
-                    {topKpis.map((kpi, index) => (
-                        <div 
-                            key={kpi.title} 
-                            className={`text-center p-1.5 ${index > 0 ? 'border-l' : ''}`} 
-                            style={{ borderColor: isLight ? '#e2e8f0' : '#334155' }}
+                <section
+                className={`grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-1 mb-2 flex-shrink-0 rounded-lg p-1 transition-colors ${
+                    isLight
+                    ? "bg-white border border-slate-200 shadow-sm"
+                    : "bg-slate-900 border border-slate-800"
+                }`}
+                >
+                {topKpis.map((kpi, index) => {
+                    const isRealisasi = kpi.title.toLowerCase().includes("realisasi");
+
+                    return (
+                    <div
+                key={kpi.title}
+                className={`relative rounded-lg flex flex-col justify-center p-2 h-full ${
+                    index > 0 ? "border-l" : ""
+                } transition-all duration-200 ${
+                    isLight
+                    ? "hover:bg-slate-50 border-slate-200"
+                    : "hover:bg-slate-800 border-slate-700"
+                }`}
+                style={{ borderColor: isLight ? "#e2e8f0" : "#334155" }}
+                >
+                {/* Card Normal */}
+                {!isRealisasi && (
+                    <div className="flex flex-col items-center justify-center text-center h-full">
+                    <div className={`text-[11px] font-bold uppercase mb-0.5 ${
+                        isLight ? "text-slate-500" : "text-slate-400"
+                        }`}
+                    >
+                        {kpi.title}
+                    </div>
+                    <div className={`text-xl font-bold flex items-center justify-left gap-1.5 ${kpi.color}`} >
+                        <kpi.icon className="h-4 w-4" />
+                        {kpi.value}
+                    </div>
+                    </div>
+                )}
+
+                {/* Card Realisasi */}
+                {isRealisasi && (
+                    <div
+                    className={`flex items-center justify p-2 rounded-lg h-full ${
+                        isLight
+                    }`}
+                    >
+                    {/* Kiri: Nilai Realisasi */}
+                    <div className="flex flex-col items-start justify-center w-1/2">
+                        <div
+                        className={`text-[11px] font-bold uppercase mb-0.5 ${
+                            isLight ? "text-slate-500" : "text-slate-400"
+                        }`}
                         >
-                            <div className={`text-[11px] font-bold uppercase mb-0.5 ${isLight ? 'text-slate-500' : 'text-slate-400'}`}>{kpi.title}</div>
-                            <div className={`text-xl font-bold flex items-center justify-center gap-1.5 ${kpi.color}`}>
-                                <kpi.icon className="h-4 w-4" />
-                                {kpi.value}
-                            </div>
+                        {kpi.title}
                         </div>
-                    ))}
+                        <div
+                        className={`text-xl font-extrabold flex items-center gap-1 ${kpi.color}`}
+                        >
+                        <kpi.icon className="h-5 w-5" />
+                        {kpi.value}
+                        </div>
+                    </div>
+
+                    {/* Kanan: Data Turunan */}
+                    <div className="flex flex-col gap-1 w-1/2 justify-center">
+  {rightKPI.map((sub) => (
+    <div
+      key={sub.title}
+      className="grid grid-cols-[auto_1fr_auto] items-center gap-2 text-left p-0 rounded-md hover:bg-slate-100/50 dark:hover:bg-slate-700/50 transition-all"
+    >
+      {/* Icon */}
+      <sub.icon className="h-3 w-3 flex-shrink-0" />
+
+      {/* Judul */}
+      <span
+        className={`text-[10px] font-semibold uppercase tracking-wide truncate ${
+          isLight ? "text-slate-500" : "text-slate-400"
+        }`}
+      >
+        {sub.title}
+      </span>
+
+      {/* Nilai (Nominal) */}
+      <span
+        className={`text-[11px] font-bold ${sub.color}`}
+      >
+        {sub.value}
+      </span>
+    </div>
+  ))}
+</div>
+
+
+                    </div>
+                )}
+                </div>
+
+                    );
+                })}
                 </section>
+
 
                 {/* Main Content Area */}
                 <main className="flex-1 min-h-0 flex flex-col gap-2">
@@ -1030,65 +1116,12 @@ const FinanceDashboard = () => {
 
                         <div className="lg:col-span-9 flex flex-col gap-2 min-h-0">
                             <div className="flex-1 grid grid-cols-1 lg:grid-cols-12 gap-2 min-h-0">
-                                <div className="h-full min-h-[300px] lg:min-h-0 lg:col-span-9">
+                                <div className="h-full min-h-[300px] lg:min-h-0 lg:col-span-12">
                                     <InteractiveProcurementChart 
                                         isLight={isLight} 
                                         totalData={dashboardData.data_per_bulan}
                                         divisionalData={divisionalProcurementData}
                                     />
-                                </div>
-                                <div className="h-full min-h-[300px] lg:min-h-0 lg:col-span-3">
-                                    <div className={`flex flex-col gap-3 rounded-2xl p-4 transition-all duration-300 ${
-                                            isLight
-                                            ? "bg-gradient-to-b from-slate-50 to-white border border-slate-200 shadow-sm hover:shadow-md"
-                                            : "bg-gradient-to-b from-slate-800 to-slate-900 border border-slate-700 hover:shadow-lg"
-                                        }`}
-                                        >
-                                        {/* Header */}
-                                        <div className="flex items-center justify-between mb-1">
-                                            <h2 className={`text-base font-semibold tracking-wide ${
-                                                isLight ? "text-slate-700" : "text-slate-200"
-                                            }`} >
-                                            Realisasi
-                                            </h2>
-                                        </div>
-
-                                        {/* KPI Cards */}
-                                        <section className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-1 gap-3">
-                                            {rightKPI.map((kpi) => (
-                                            <div
-                                                key={kpi.title}
-                                                className={`flex items-center gap-3 rounded-xl px-3 py-2 transition-all duration-200 border ${
-                                                isLight
-                                                    ? "bg-white border-slate-200 hover:bg-slate-100"
-                                                    : "bg-slate-800 border-slate-700 hover:bg-slate-700"
-                                                }`}
-                                            >
-                                                <div
-                                                className={`flex items-center justify-center p-2 rounded-full ${
-                                                    isLight ? "bg-slate-200/80" : "bg-slate-700"
-                                                }`}
-                                                >
-                                                <kpi.icon className={`h-5 w-5 ${kpi.color}`} />
-                                                </div>
-                                                <div className="flex flex-col">
-                                                <span
-                                                    className={`text-[12px] uppercase font-semibold tracking-wide ${
-                                                    isLight ? "text-slate-500" : "text-slate-400"
-                                                    }`}
-                                                >
-                                                    {kpi.title}
-                                                </span>
-                                                <span
-                                                    className={`text-base font-bold leading-tight ${kpi.color}`}
-                                                >
-                                                    {kpi.value}
-                                                </span>
-                                                </div>
-                                            </div>
-                                            ))}
-                                        </section>
-                                    </div>
                                 </div>
                             </div>
                             
