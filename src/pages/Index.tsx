@@ -60,23 +60,32 @@ const timeAgo = (dateString: string): string => {
 
 // -- Helper Function untuk Format Mata Uang --
 const formatCurrency = (value) => {
- if (typeof value !== 'number') {
-    return value;
- }
- if (value >= 1e9) {
-    // Menggunakan Miliar (M)
-    return (value / 1e9).toFixed(1) + "M";
- }
- if (value >= 1e6) {
-    // Menggunakan Juta (Jt)
-    return (value / 1e6).toFixed(1) + "Jt";
- }
- if (value >= 1e3) {
-    // Menggunakan Ribu (K)
-    return (value / 1e3).toFixed(1) + "K";
- }
- return value.toString();
+  if (typeof value !== 'number') return value;
+
+  // Format angka dengan koma ribuan & 2 desimal
+  const format = (num) =>
+    num.toLocaleString('en-US', {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    });
+
+  if (value >= 1e9) {
+    // Miliar (M)
+    return format(value / 1e9) + "M";
+  }
+  if (value >= 1e6) {
+    // Juta (Jt)
+    return format(value / 1e6) + "Jt";
+  }
+  if (value >= 1e3) {
+    // Ribu (K)
+    return format(value / 1e3) + "K";
+  }
+
+  return format(value);
 };
+
+
 
 
 const BudgetSummaryCharts = ({ isLight, budgetTotals }) => {
@@ -246,7 +255,7 @@ const InteractiveProcurementChart = ({ isLight, totalData, divisionalData }) => 
             {/* Chart Area */}
             <div className="flex-1 min-h-0">
                 <ResponsiveContainer width="100%" height="100%">
-                    <LineChart data={currentView.data} margin={{ top: 5, right: -30, left: -20, bottom: 0 }}>
+                    <LineChart data={currentView.data} margin={{ top: 5, right: -30, left: -10, bottom: 0 }}>
                         <CartesianGrid strokeDasharray="3 3" stroke={gridColor} />
                         <XAxis dataKey="bulan" fontSize={10} tick={{ fill: textColor }} axisLine={{ stroke: gridColor }} tickLine={{ stroke: gridColor }} />
                         <YAxis 
