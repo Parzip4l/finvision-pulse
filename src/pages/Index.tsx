@@ -1041,54 +1041,53 @@ const FinanceDashboard = () => {
                     }`}
                     >
                     {/* Kiri: Nilai Realisasi */}
-                    <div className="flex flex-col items-start justify-center w-1/2">
-  <div
-    className={`text-[11px] font-bold uppercase mb-0.5 ${
-      isLight ? "text-slate-500" : "text-slate-400"
-    }`}
-  >
-    {kpi.title}
-  </div>
-  <div
-    className={`text-xl font-extrabold flex items-center gap-1 ${kpi.color} ${
-      isLight ? "" : "text-white"
-    }`}
-  >
-    <kpi.icon className="h-5 w-5" />
-    {kpi.value}
-  </div>
-</div>
+                    <div className="flex flex-col items-center text-center justify-center w-1/2">
+                    <div
+                        className={`text-[11px] font-bold uppercase ml-2 mb-0.5 ${
+                        isLight ? "text-slate-500" : "text-slate-400"
+                        }`}
+                    >
+                        {kpi.title}
+                    </div>
+                    <div
+                        className={`text-xl font-extrabold flex items-center justify-center gap-1 ${kpi.color} ${
+                        isLight ? "" : "text-white"
+                        }`}
+                    >
+                        <kpi.icon className="h-5 w-5" />
+                        {kpi.value}
+                    </div>
+                    </div>
+
 
                     {/* Kanan: Data Turunan */}
                     <div className="flex flex-col gap-1 w-1/2 justify-center">
-  {rightKPI.map((sub) => (
-    <div
-      key={sub.title}
-      className="grid grid-cols-[auto_1fr_auto] items-center gap-2 text-left p-0 rounded-md hover:bg-slate-100/50 dark:hover:bg-slate-700/50 transition-all"
-    >
-      {/* Icon */}
-      <sub.icon className="h-3 w-3 flex-shrink-0" />
+                        {rightKPI.map((sub) => (
+                            <div
+                            key={sub.title}
+                            className="grid grid-cols-[auto_1fr_auto] items-center gap-2 text-left p-0 rounded-md hover:bg-slate-100/50 dark:hover:bg-slate-700/50 transition-all"
+                            >
+                            {/* Icon */}
+                            <sub.icon className="h-3 w-3 flex-shrink-0" />
 
-      {/* Judul */}
-      <span
-        className={`text-[10px] font-semibold uppercase tracking-wide truncate ${
-          isLight ? "text-slate-500" : "text-slate-400"
-        }`}
-      >
-        {sub.title}
-      </span>
+                            {/* Judul */}
+                            <span
+                                className={`text-[10px] font-semibold uppercase tracking-wide truncate ${
+                                isLight ? "text-slate-500" : "text-slate-400"
+                                }`}
+                            >
+                                {sub.title}
+                            </span>
 
-      {/* Nilai (Nominal) */}
-      <span
-        className={`text-[11px] font-bold ${sub.color}`}
-      >
-        {sub.value}
-      </span>
-    </div>
-  ))}
-</div>
-
-
+                            {/* Nilai (Nominal) */}
+                            <span
+                                className={`text-[11px] font-bold ${sub.color}`}
+                            >
+                                {sub.value}
+                            </span>
+                            </div>
+                        ))}
+                        </div>
                     </div>
                 )}
                 </div>
