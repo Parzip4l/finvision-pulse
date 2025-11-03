@@ -129,7 +129,7 @@ const BudgetSummaryCharts = ({ isLight, budgetTotals }) => {
                 </div>
             </div>
             <div className="flex items-center">
-                <div className="w-1/2 h-26">
+                <div className="w-1/2 h-24">
                 <ResponsiveContainer width="100%" height="100%">
                     <PieChart>
                     <Pie data={data2} dataKey="value" innerRadius={20} outerRadius={30} paddingAngle={5}>
