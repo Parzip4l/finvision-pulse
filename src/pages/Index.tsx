@@ -111,7 +111,7 @@ const BudgetSummaryCharts = ({ isLight, budgetTotals }) => {
         </h2>
         <div className="h-full w-full flex flex-col justify-around">
             <div className="flex items-center">
-                <div className="w-1/2 h-24">
+                <div className="w-1/2 h-20">
                 <ResponsiveContainer width="100%" height="100%">
                     <PieChart>
                     <Pie data={data1} dataKey="value" innerRadius={20} outerRadius={30} paddingAngle={5}>
@@ -129,7 +129,7 @@ const BudgetSummaryCharts = ({ isLight, budgetTotals }) => {
                 </div>
             </div>
             <div className="flex items-center">
-                <div className="w-1/2 h-24">
+                <div className="w-1/2 h-26">
                 <ResponsiveContainer width="100%" height="100%">
                     <PieChart>
                     <Pie data={data2} dataKey="value" innerRadius={20} outerRadius={30} paddingAngle={5}>
@@ -143,12 +143,12 @@ const BudgetSummaryCharts = ({ isLight, budgetTotals }) => {
                 <div className="w-1/2 text-xs space-y-0.5">
                     <p className={`font-bold ${isLight ? 'text-slate-700' : 'text-slate-300'}`}>Tipe Anggaran (Realokasi)</p>
                     <p className={`flex items-center gap-1.5 ${isLight ? 'text-slate-500' : 'text-slate-400'}`}>
-                        <span className="w-2 h-2 rounded-full bg-[#14b8a6]"></span>
-                        <span>{opexPercent.toFixed(1)}% OPEX</span>
+                        <span className="w-4 h-4 rounded-full bg-[#14b8a6]"></span>
+                        <p className={`font-bold text-lg text-[#14b8a6]`}>{opexPercent.toFixed(1)}% OPEX</p>
                     </p>
                     <p className={`flex items-center gap-1.5 ${isLight ? 'text-slate-500' : 'text-slate-400'}`}>
-                        <span className="w-2 h-2 rounded-full bg-[#3b82f6]"></span>
-                        <span>{capexPercent.toFixed(1)}% CAPEX</span>
+                        <span className="w-4 h-4 rounded-full bg-[#3b82f6]"></span>
+                        <p className={`font-bold text-lg text-[#3b82f6]`}>{capexPercent.toFixed(1)}% CAPEX</p>
                     </p>
                 </div>
             </div>
@@ -600,6 +600,37 @@ const OnProgressKpis = ({ isLight, onProgressTotals }) => {
     );
 };
 
+const OnProgressPO = ({ isLight, onProgressTotals }) => {
+    const { ongoing_request, on_proses_pengadaan } = onProgressTotals;
+    const kpis = [
+        { title: "Total PO", value: 277, icon: Briefcase, color: isLight ? 'text-slate-900' : 'text-white' },
+        { 
+            title: "Nilai Komitmen PO", 
+            value: formatCurrency(167.68 * 1_000_000_000),
+            icon: Package, 
+            color: isLight ? 'text-slate-900' : 'text-white' 
+        },
+    ];
+
+    return (
+        <div className={`grid grid-cols-2 gap-2 mb-2 flex-shrink-0 rounded-lg p-2 transition-colors ${isLight ? 'bg-white border border-slate-200 shadow-sm' : 'bg-slate-900 border border-slate-800'}`}>
+            {kpis.map((kpi, index) => (
+                <div 
+                    key={kpi.title} 
+                    className={`text-center p-1.5 ${index > 0 ? 'border-l' : ''}`} 
+                    style={{ borderColor: isLight ? '#e2e8f0' : '#334155' }}
+                >
+                    <div className={`text-[11px] font-bold uppercase mb-0.5 ${isLight ? 'text-slate-500' : 'text-slate-400'}`}>{kpi.title}</div>
+                    <div className={`text-lg font-bold flex items-center justify-center gap-1.5 ${kpi.color}`}>
+                        <kpi.icon className="h-4 w-4" />
+                        {kpi.value}
+                    </div>
+                </div>
+            ))}
+        </div>
+    );
+};
+
 
 const ProcurementStatusChart = ({ isLight, data }) => {
     const chartData = data.divisi.filter(
@@ -851,7 +882,7 @@ const SavingsKpis = ({ isLight, savingsData }) => {
 
     const kpis = [
         { title: "Total Saving Nego (YTD)", value: formatCurrency(yearlyData.Selisih_Nego_BAKN), icon: Award, color: 'text-emerald-500' },
-    { title: "% Saving Penawaran (Q4)", value: q4Data.Persen_Saving_Penawaran, icon: TrendingUp, color: 'text-emerald-500' }, 
+        { title: "% Saving Penawaran (Q4)", value: q4Data.Persen_Saving_Penawaran, icon: TrendingUp, color: 'text-emerald-500' }, 
     ];
 
     return (
@@ -890,11 +921,11 @@ const FinanceDashboard = () => {
     };
 
     const isLight = theme === 'light';
-    const kpiProposal = 323447228829;
-    const kpiRealokasi = 328169047680;
-    const kpiRealisasi = 211617542768;
-    const kpiPersenPenyerapan = 64.48;
-    const kpiSisaAnggaran = 116551504912;
+    const kpiProposal = 359976877015;
+    const kpiRealokasi = 350849141975;
+    const kpiRealisasi = 198275365353;
+    const kpiPersenPenyerapan = 55.08;
+    const kpiSisaAnggaran = 152135658170;
 
     const topKpis = [
         { title: "Proposal", value: formatCurrency(kpiProposal), icon: Briefcase, color: isLight ? 'text-slate-900' : 'text-white' },
@@ -931,8 +962,8 @@ const FinanceDashboard = () => {
                     <div className="flex flex-col items-center text-center md:flex-row md:items-center md:text-left gap-2 md:gap-4">
                         <img src="https://e-ptw.lrtjakarta.co.id/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Flogo-lrtj-white.847caf54.png&w=640&q=75" alt="LRT Jakarta Logo" className="h-10" />
                         <div>
-                            <h1 className="text-xl font-bold tracking-wide text-white">FINANCIAL DASHBOARD</h1>
-                            <p className="text-xs font-semibold text-white/80">Real-Time Monitoring System</p>
+                            <h1 className="text-xl font-bold tracking-wide text-white">Dashboard Penyerapan Anggaran</h1>
+                            <p className="text-xs font-semibold text-white/80">Real-Time Dashboard | LRT Jakarta</p>
                         </div>
                     </div>
                     <div className="flex items-center gap-4 mt-3 md:mt-0">
@@ -973,6 +1004,7 @@ const FinanceDashboard = () => {
                         
                             <SavingsKpis isLight={isLight} savingsData={savingsData} />
                             <OnProgressKpis isLight={isLight} onProgressTotals={onProgressTotals} />
+                            <OnProgressPO isLight={isLight} onProgressTotals={onProgressTotals} />
                             <div className="flex-1 min-h-[300px] lg:min-h-0">
                                 <ProcurementStatusChart isLight={isLight} data={procurementStatusData.pengadaan_status} />
                             </div>
