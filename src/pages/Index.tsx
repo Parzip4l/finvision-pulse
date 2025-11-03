@@ -1042,20 +1042,22 @@ const FinanceDashboard = () => {
                     >
                     {/* Kiri: Nilai Realisasi */}
                     <div className="flex flex-col items-start justify-center w-1/2">
-                        <div
-                        className={`text-[11px] font-bold uppercase mb-0.5 ${
-                            isLight ? "text-slate-500" : "text-slate-400"
-                        }`}
-                        >
-                        {kpi.title}
-                        </div>
-                        <div
-                        className={`text-xl font-extrabold flex items-center gap-1 ${kpi.color}`}
-                        >
-                        <kpi.icon className="h-5 w-5" />
-                        {kpi.value}
-                        </div>
-                    </div>
+  <div
+    className={`text-[11px] font-bold uppercase mb-0.5 ${
+      isLight ? "text-slate-500" : "text-slate-400"
+    }`}
+  >
+    {kpi.title}
+  </div>
+  <div
+    className={`text-xl font-extrabold flex items-center gap-1 ${kpi.color} ${
+      isLight ? "" : "text-white"
+    }`}
+  >
+    <kpi.icon className="h-5 w-5" />
+    {kpi.value}
+  </div>
+</div>
 
                     {/* Kanan: Data Turunan */}
                     <div className="flex flex-col gap-1 w-1/2 justify-center">
