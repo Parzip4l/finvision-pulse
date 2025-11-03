@@ -749,7 +749,7 @@ const DepartmentBudgetPerformanceChart = ({ isLight, data }) => {
         return data
             .map(item => ({
                 ...item,
-                label: `${item.kode} - ${item.departemen}`,
+                label: `${item.departemen}`,
                 penyerapan_total: item.penyerapan.total,
                 anggaran_awal: item.anggaran_2025.total,
                 anggaran_realokasi: item.realokasi_2025.total,
@@ -839,8 +839,8 @@ const DepartmentBudgetPerformanceChart = ({ isLight, data }) => {
                     <BarChart
                         layout="vertical"
                         data={currentChartData}
-                        margin={{ top: 5, right: 20, left: -50, bottom: 10 }}
-                        barGap={4}
+                        margin={{ top: 1, right: 10, left: -40, bottom: 10 }}
+                        barGap={5}
                     >
                         <CartesianGrid strokeDasharray="3 3" stroke={gridColor} />
                         <XAxis 
@@ -858,7 +858,7 @@ const DepartmentBudgetPerformanceChart = ({ isLight, data }) => {
                             tick={{ fill: textColor }} 
                             axisLine={{ stroke: gridColor }}
                             interval={0}
-                            tickFormatter={(value) => value.length > 30 ? value.substring(0, 30) + '...' : value} // Truncate
+                            tickFormatter={(value) => value.length > 30 ? value.substring(0, 30) + '...' : value}
                         />
                         <Tooltip content={CustomTooltip} />
                         <Legend iconType="circle" iconSize={8} wrapperStyle={{ fontSize: '10px', paddingTop: '10px' }} />

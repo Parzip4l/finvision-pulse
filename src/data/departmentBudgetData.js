@@ -1,9 +1,9 @@
-// --- DATA BARU UNTUK ANGGARAN DEPARTEMEN ---
+// --- DATA BARU UNTUK ANGGARAN DPT. ---
 export const departmentBudgetData = {
   "departments": [
     {
       "kode": "01",
-      "departemen": "Departemen Pelayanan",
+      "departemen": "DPT. Pelayanan",
       "anggaran_2025": {
         "capex": 0,
         "opex": 16305633742,
@@ -26,7 +26,7 @@ export const departmentBudgetData = {
     },
     {
       "kode": "02",
-      "departemen": "Departemen Awak Sarana Perkeretapian",
+      "departemen": "DPT. Awak Sarana Perkeretapian",
       "anggaran_2025": {
         "capex": 305805000,
         "opex": 103896000,
@@ -49,7 +49,7 @@ export const departmentBudgetData = {
     },
     {
       "kode": "03",
-      "departemen": "Departemen Pengendali Operasi",
+      "departemen": "DPT. Pengendali Operasi",
       "anggaran_2025": {
         "capex": 0,
         "opex": 92844840,
@@ -72,7 +72,7 @@ export const departmentBudgetData = {
     },
     {
       "kode": "04",
-      "departemen": "Departemen Perawatan Sarana",
+      "departemen": "DPT. Perawatan Sarana",
       "anggaran_2025": {
         "capex": 0,
         "opex": 26081596565,
@@ -95,7 +95,7 @@ export const departmentBudgetData = {
     },
     {
       "kode": "05",
-      "departemen": "Departemen Fasilitas Perawatan Sarana",
+      "departemen": "DPT. Fasilitas Perawatan Sarana",
       "anggaran_2025": {
         "capex": 0,
         "opex": 7362900023,
@@ -118,7 +118,7 @@ export const departmentBudgetData = {
     },
     {
       "kode": "06",
-      "departemen": "Departemen Fasilitas Operasi Prasarana",
+      "departemen": "DPT. Fasilitas Operasi Prasarana",
       "anggaran_2025": {
         "capex": 0,
         "opex": 39994814509,
@@ -141,7 +141,7 @@ export const departmentBudgetData = {
     },
     {
       "kode": "07",
-      "departemen": "Departemen Rekayasa dan Mutu Prasarana",
+      "departemen": "DPT. Rekayasa dan Mutu Prasarana",
       "anggaran_2025": {
         "capex": 2328460158,
         "opex": 1621614035,
@@ -164,7 +164,7 @@ export const departmentBudgetData = {
     },
     {
       "kode": "08",
-      "departemen": "Departemen Jalur & Bangunan",
+      "departemen": "DPT. Jalur & Bangunan",
       "anggaran_2025": {
         "capex": 0,
         "opex": 25020207426,
@@ -187,7 +187,7 @@ export const departmentBudgetData = {
     },
     {
       "kode": "09",
-      "departemen": "Departemen Keamanan",
+      "departemen": "DPT. Keamanan",
       "anggaran_2025": {
         "capex": 2394270189,
         "opex": 28160257790,
@@ -210,7 +210,7 @@ export const departmentBudgetData = {
     },
     {
       "kode": "10",
-      "departemen": "Departemen Keselamatan, Kesehatan & Lingkungan",
+      "departemen": "DPT. Keselamatan, Kesehatan & Lingkungan",
       "anggaran_2025": {
         "capex": 0,
         "opex": 6054644197,
@@ -233,7 +233,7 @@ export const departmentBudgetData = {
     },
     {
       "kode": "11",
-      "departemen": "Departemen Pengembangan SDM",
+      "departemen": "DPT. Pengembangan SDM",
       "anggaran_2025": {
         "capex": 0,
         "opex": 4615992586,
@@ -256,7 +256,7 @@ export const departmentBudgetData = {
     },
     {
       "kode": "12",
-      "departemen": "Departemen Layanan SDM",
+      "departemen": "DPT. Layanan SDM",
       "anggaran_2025": {
         "capex": 0,
         "opex": 115661739398,
@@ -279,7 +279,7 @@ export const departmentBudgetData = {
     },
     {
       "kode": "13",
-      "departemen": "Departemen Bagian Umum",
+      "departemen": "DPT. Bagian Umum",
       "anggaran_2025": {
         "capex": 0,
         "opex": 13615874632,
@@ -302,7 +302,7 @@ export const departmentBudgetData = {
     },
     {
       "kode": "14",
-      "departemen": "Departemen Subsidi & Anggaran",
+      "departemen": "DPT. Subsidi & Anggaran",
       "anggaran_2025": {
         "capex": 0,
         "opex": 993707028,
@@ -325,7 +325,7 @@ export const departmentBudgetData = {
     },
     {
       "kode": "16",
-      "departemen": "Departemen Keuangan & Pendapatan",
+      "departemen": "DPT. Keuangan & Pendapatan",
       "anggaran_2025": {
         "capex": 0,
         "opex": 307476000,
@@ -348,7 +348,7 @@ export const departmentBudgetData = {
     },
     {
       "kode": "17",
-      "departemen": "Departemen Manajemen Risiko & Kepatuhan",
+      "departemen": "DPT. Manajemen Risiko & Kepatuhan",
       "anggaran_2025": {
         "capex": 0,
         "opex": 1161559500,
@@ -371,7 +371,7 @@ export const departmentBudgetData = {
     },
     {
       "kode": "18",
-      "departemen": "Departemen Komunikasi Perusahaan",
+      "departemen": "DPT. Komunikasi Perusahaan",
       "anggaran_2025": {
         "capex": 0,
         "opex": 2849018959,
@@ -394,7 +394,7 @@ export const departmentBudgetData = {
     },
     {
       "kode": "19",
-      "departemen": "Departemen Hukum",
+      "departemen": "DPT. Hukum",
       "anggaran_2025": {
         "capex": 0,
         "opex": 267502775,
@@ -417,7 +417,7 @@ export const departmentBudgetData = {
     },
     {
       "kode": "20",
-      "departemen": "Departemen Kesekretarian & Administrasi",
+      "departemen": "DPT. Kesekretarian & Administrasi",
       "anggaran_2025": {
         "capex": 0,
         "opex": 216450000,
@@ -440,7 +440,7 @@ export const departmentBudgetData = {
     },
     {
       "kode": "21",
-      "departemen": "Departemen Perencanaan Perusahaan",
+      "departemen": "DPT. Perencanaan Perusahaan",
       "anggaran_2025": {
         "capex": 0,
         "opex": 283449700,
@@ -463,7 +463,7 @@ export const departmentBudgetData = {
     },
     {
       "kode": "22",
-      "departemen": "Departemen Pengadaan",
+      "departemen": "DPT. Pengadaan",
       "anggaran_2025": {
         "capex": 0,
         "opex": 366855000,
@@ -509,7 +509,7 @@ export const departmentBudgetData = {
     },
     {
       "kode": "25",
-      "departemen": "Departemen Pergudangan",
+      "departemen": "DPT. Pergudangan",
       "anggaran_2025": {
         "capex": 0,
         "opex": 847280000,
@@ -532,7 +532,7 @@ export const departmentBudgetData = {
     },
     {
       "kode": "26",
-      "departemen": "Departemen Operasi Sistem & Layanan Teknologi Informasi",
+      "departemen": "DPT. Operasi Sistem & Layanan Teknologi Informasi",
       "anggaran_2025": {
         "capex": 0,
         "opex": 8089012082,
@@ -555,7 +555,7 @@ export const departmentBudgetData = {
     },
     {
       "kode": "27",
-      "departemen": "Departemen Pengembangan Sistem Teknologi Informasi",
+      "departemen": "DPT. Pengembangan Sistem Teknologi Informasi",
       "anggaran_2025": {
         "capex": 0,
         "opex": 3583912000,
@@ -578,7 +578,7 @@ export const departmentBudgetData = {
     },
     {
       "kode": "30",
-      "departemen": "Departemen Jaminan Mutu",
+      "departemen": "DPT. Jaminan Mutu",
       "anggaran_2025": {
         "capex": 0,
         "opex": 323650950,
@@ -601,7 +601,7 @@ export const departmentBudgetData = {
     },
     {
       "kode": "32",
-      "departemen": "Departemen Infrastruktur & Keamanan IT",
+      "departemen": "DPT. Infrastruktur & Keamanan IT",
       "anggaran_2025": {
         "capex": 0,
         "opex": 3992792829,
@@ -624,7 +624,7 @@ export const departmentBudgetData = {
     },
     {
       "kode": "31",
-      "departemen": "Departemen Manajemen Proses Bisnis dan Inovasi",
+      "departemen": "DPT. Manajemen Proses Bisnis dan Inovasi",
       "anggaran_2025": {
         "capex": 0,
         "opex": 114511000,
@@ -647,7 +647,7 @@ export const departmentBudgetData = {
     },
     {
       "kode": "33",
-      "departemen": "Departemen Customer Engangement",
+      "departemen": "DPT. Customer Engangement",
       "anggaran_2025": {
         "capex": 0,
         "opex": 585930000,
@@ -670,7 +670,7 @@ export const departmentBudgetData = {
     },
     {
       "kode": "28",
-      "departemen": "Departemen Ekspansi Bisnis",
+      "departemen": "DPT. Ekspansi Bisnis",
       "anggaran_2025": {
         "capex": 0,
         "opex": 41014639567,
@@ -693,7 +693,7 @@ export const departmentBudgetData = {
     },
     {
       "kode": "29",
-      "departemen": "Departemen Komersial",
+      "departemen": "DPT. Komersial",
       "anggaran_2025": {
         "capex": 0,
         "opex": 5079264785,
