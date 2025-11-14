@@ -15,7 +15,7 @@ import {
 } from 'lucide-react';
 import {
     LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
-    Legend, AreaChart, Area, PieChart, Pie, Cell, BarChart, Bar
+    Legend, AreaChart, Area, PieChart, Pie, Cell, BarChart, Bar, LabelList
 } from 'recharts';
 
 import {
@@ -614,8 +614,8 @@ const OnProgressPO = ({ isLight, onProgressTotals }) => {
     const kpis = [
         { title: "Total PO", value: 277, icon: Briefcase, color: isLight ? 'text-slate-900' : 'text-white' },
         { 
-            title: "Nilai Komitmen PO", 
-            value: formatCurrency(167.68 * 1_000_000_000),
+            title: "Estimasi Serapan 2025", 
+            value: formatCurrency(155.83 * 1_000_000_000),
             icon: Package, 
             color: isLight ? 'text-slate-900' : 'text-white' 
         },
@@ -872,9 +872,36 @@ const DepartmentBudgetPerformanceChart = ({ isLight, data }) => {
                         <Tooltip content={CustomTooltip} />
                         <Legend iconType="circle" iconSize={8} wrapperStyle={{ fontSize: '10px', paddingTop: '10px' }} />
                         
-                        <Bar dataKey="anggaran_awal" name="Anggaran Awal" fill={isLight ? '#cbd5e1' : '#475569'} radius={[4, 4, 0, 0]} />
-                        <Bar dataKey="anggaran_realokasi" name="Anggaran Realokasi" fill="#3b82f6" radius={[4, 4, 0, 0]} />
-                        <Bar dataKey="penyerapan_total" name="Penyerapan" fill="#D3242B" radius={[4, 4, 0, 0]} />
+                        <Bar dataKey="anggaran_awal" name="Anggaran Awal" fill={isLight ? '#cbd5e1' : '#475569'} radius={[4, 4, 0, 0]}>
+                            <LabelList 
+                                dataKey="anggaran_awal" 
+                                position="insideRight"
+                                fill={isLight ? '#334155' : '#e2e8f0'} 
+                                fontSize={9}
+                                fontWeight="bold"
+                                formatter={formatCurrency}
+                            />
+                        </Bar>
+                        <Bar dataKey="anggaran_realokasi" name="Anggaran Realokasi" fill="#3b82f6" radius={[4, 4, 0, 0]}>
+                            <LabelList 
+                                dataKey="anggaran_realokasi" 
+                                position="insideRight"
+                                fill="#ffffff"
+                                fontSize={9}
+                                fontWeight="bold"
+                                formatter={formatCurrency}
+                            />
+                        </Bar>
+                        <Bar dataKey="penyerapan_total" name="Penyerapan" fill="#D3242B" radius={[4, 4, 0, 0]}>
+                            <LabelList 
+                                dataKey="penyerapan_total" 
+                                position="insideRight"
+                                fill="#ffffff"
+                                fontSize={9}
+                                fontWeight="bold"
+                                formatter={formatCurrency}
+                            />
+                        </Bar>
                     </BarChart>
                 </ResponsiveContainer>
             </div>
@@ -938,11 +965,21 @@ const FinanceDashboard = () => {
     const capexData = 2713132806;
     const OpexVerif = 133308067526;
     const OpexPPA = 62254165021; 
+    const Subsidi = 115024715820;
+    const Busdev = 30706539670;
+    const Corcost = 6404402681;
+    const PropsSubsidi = 288686579722;
+    const PropsBusdev = 46093904352;
+    const PropsCorcost = 25196392941;
+    const RealokSubsidi = 279558844683;
+    const RealokBusdev = 46093904352;
+    const RealokCorcost = 25196392941;
+
 
     const topKpis = [
         { title: "Proposal", value: formatCurrency(kpiProposal), icon: Briefcase, color: isLight ? 'text-slate-900' : 'text-white' },
         { title: "Realokasi", value: formatCurrency(kpiRealokasi), icon: Package, color: isLight ? 'text-slate-900' : 'text-white' },
-         { title: "Realisasi", value: formatCurrency(kpiRealisasi), icon: Wallet, color: 'text-slate-900' }, 
+        { title: "Realisasi", value: formatCurrency(kpiRealisasi), icon: Wallet, color: 'text-slate-900' }, 
         { title: "% Penyerapan", value: `${kpiPersenPenyerapan}%`, icon: Package, color: 'text-emerald-500' },
         { title: "Sisa Anggaran", value: formatCurrency(kpiSisaAnggaran), icon: Wallet, color: 'text-[#F6821F]' },
        
@@ -952,6 +989,24 @@ const FinanceDashboard = () => {
         { title: "Capex", value: formatCurrency(capexData), icon: Wallet, color: isLight ? 'text-slate-900' : 'text-white' },
         { title: "Verifikasi", value: formatCurrency(OpexVerif), icon: Wallet, color: isLight ? 'text-slate-900' : 'text-white' },
         { title: "PPA/SPUK/KK", value: formatCurrency(OpexPPA), icon: Wallet, color: isLight ? 'text-slate-900' : 'text-white' },     
+    ]
+    
+    const breakdownPenyerapan = [
+        { title: "Subsidi", value: formatCurrency(Subsidi), icon: Wallet, color: isLight ? 'text-slate-900' : 'text-white' },
+        { title: "Busdev", value: formatCurrency(Busdev), icon: Wallet, color: isLight ? 'text-slate-900' : 'text-white' },
+        { title: "Corporate Cost", value: formatCurrency(Corcost), icon: Wallet, color: isLight ? 'text-slate-900' : 'text-white' },
+    ]
+
+    const breakdownRealokasi = [
+        { title: "Subsidi", value: formatCurrency(RealokSubsidi), icon: Wallet, color: isLight ? 'text-slate-900' : 'text-white' },
+        { title: "Busdev", value: formatCurrency(RealokBusdev), icon: Wallet, color: isLight ? 'text-slate-900' : 'text-white' },
+        { title: "Corporate Cost", value: formatCurrency(RealokCorcost), icon: Wallet, color: isLight ? 'text-slate-900' : 'text-white' },
+    ]
+
+    const breakdownProposal = [
+        { title: "Subsidi", value: formatCurrency(PropsSubsidi), icon: Wallet, color: isLight ? 'text-slate-900' : 'text-white' },   
+        { title: "Busdev", value: formatCurrency(PropsBusdev), icon: Wallet, color: isLight ? 'text-slate-900' : 'text-white' },
+        { title: "Corporate Cost", value: formatCurrency(PropsCorcost), icon: Wallet, color: isLight ? 'text-slate-900' : 'text-white' },
     ]
 
     const { realokasi_2025: capexOpexData } = departmentBudgetData.total;
@@ -1004,6 +1059,10 @@ const FinanceDashboard = () => {
                 >
                 {topKpis.map((kpi, index) => {
                     const isRealisasi = kpi.title.toLowerCase().includes("realisasi");
+                    const isSisaAnggaran = kpi.title.toLowerCase().includes("sisa anggaran");
+                    const isRealokasi = kpi.title.toLowerCase().includes("realokasi");
+                    const isProposal = kpi.title.toLowerCase().includes("proposal");
+                    const isPenyerapan = kpi.title.toLowerCase().includes("% penyerapan");
 
                     return (
                     <div
@@ -1018,7 +1077,7 @@ const FinanceDashboard = () => {
                 style={{ borderColor: isLight ? "#e2e8f0" : "#334155" }}
                 >
                 {/* Card Normal */}
-                {!isRealisasi && (
+                {!isRealisasi && !isSisaAnggaran && !isProposal && !isRealokasi && (
                     <div className="flex flex-col items-center justify-center text-center h-full">
                     <div className={`text-[11px] font-bold uppercase mb-0.5 ${
                         isLight ? "text-slate-500" : "text-slate-400"
@@ -1030,6 +1089,180 @@ const FinanceDashboard = () => {
                         <kpi.icon className="h-4 w-4" />
                         {kpi.value}
                     </div>
+                    </div>
+                )}
+
+                {/* Card Proposal */}
+                {isProposal && (
+                    <div
+                    className={`flex items-center justify p-2 rounded-lg h-full ${
+                        isLight
+                    }`}
+                    >
+                    {/* Kiri: Nilai Realisasi */}
+                    <div className="flex flex-col items-center text-center justify-center w-1/2">
+                    <div
+                        className={`text-[11px] font-bold uppercase ml-2 mb-0.5 ${
+                        isLight ? "text-slate-500" : "text-slate-400"
+                        }`}
+                    >
+                        {kpi.title}
+                    </div>
+                    <div
+                        className={`text-xl font-extrabold flex items-center justify-center gap-1 ${kpi.color} ${
+                        isLight ? "" : "text-white"
+                        }`}
+                    >
+                        <kpi.icon className="h-5 w-5" />
+                        {kpi.value}
+                    </div>
+                    </div>
+
+
+                    {/* Kanan: Data Turunan */}
+                    <div className="flex flex-col gap-1 w-1/2 justify-center">
+                        {breakdownProposal.map((sub) => (
+                            <div
+                            key={sub.title}
+                            className="grid grid-cols-[auto_1fr_auto] items-center gap-2 text-left p-0 rounded-md hover:bg-slate-100/50 dark:hover:bg-slate-700/50 transition-all"
+                            >
+                            {/* Icon */}
+                            <sub.icon className="h-3 w-3 flex-shrink-0" />
+
+                            {/* Judul */}
+                            <span
+                                className={`text-[10px] font-semibold uppercase tracking-wide truncate ${
+                                isLight ? "text-slate-500" : "text-slate-400"
+                                }`}
+                            >
+                                {sub.title}
+                            </span>
+
+                            {/* Nilai (Nominal) */}
+                            <span
+                                className={`text-[11px] font-bold ${sub.color}`}
+                            >
+                                {sub.value}
+                            </span>
+                            </div>
+                        ))}
+                        </div>
+                    </div>
+                )}
+
+                {/* Card Realokasi */}
+                {isRealokasi && (
+                    <div
+                    className={`flex items-center justify p-2 rounded-lg h-full ${
+                        isLight
+                    }`}
+                    >
+                    {/* Kiri: Nilai Realisasi */}
+                    <div className="flex flex-col items-center text-center justify-center w-1/2">
+                    <div
+                        className={`text-[11px] font-bold uppercase ml-2 mb-0.5 ${
+                        isLight ? "text-slate-500" : "text-slate-400"
+                        }`}
+                    >
+                        {kpi.title}
+                    </div>
+                    <div
+                        className={`text-xl font-extrabold flex items-center justify-center gap-1 ${kpi.color} ${
+                        isLight ? "" : "text-white"
+                        }`}
+                    >
+                        <kpi.icon className="h-5 w-5" />
+                        {kpi.value}
+                    </div>
+                    </div>
+
+
+                    {/* Kanan: Data Turunan */}
+                    <div className="flex flex-col gap-1 w-1/2 justify-center">
+                        {breakdownRealokasi.map((sub) => (
+                            <div
+                            key={sub.title}
+                            className="grid grid-cols-[auto_1fr_auto] items-center gap-2 text-left p-0 rounded-md hover:bg-slate-100/50 dark:hover:bg-slate-700/50 transition-all"
+                            >
+                            {/* Icon */}
+                            <sub.icon className="h-3 w-3 flex-shrink-0" />
+
+                            {/* Judul */}
+                            <span
+                                className={`text-[10px] font-semibold uppercase tracking-wide truncate ${
+                                isLight ? "text-slate-500" : "text-slate-400"
+                                }`}
+                            >
+                                {sub.title}
+                            </span>
+
+                            {/* Nilai (Nominal) */}
+                            <span
+                                className={`text-[11px] font-bold ${sub.color}`}
+                            >
+                                {sub.value}
+                            </span>
+                            </div>
+                        ))}
+                        </div>
+                    </div>
+                )}
+
+                {/* Card Sisa Anggaran */}
+                {isSisaAnggaran && (
+                    <div
+                    className={`flex items-center justify p-2 rounded-lg h-full ${
+                        isLight
+                    }`}
+                    >
+                    {/* Kiri: Nilai Realisasi */}
+                    <div className="flex flex-col items-center text-center justify-center w-1/2">
+                    <div
+                        className={`text-[11px] font-bold uppercase ml-2 mb-0.5 ${
+                        isLight ? "text-slate-500" : "text-slate-400"
+                        }`}
+                    >
+                        {kpi.title}
+                    </div>
+                    <div
+                        className={`text-xl font-extrabold flex items-center justify-center gap-1 ${kpi.color} ${
+                        isLight ? "" : "text-white"
+                        }`}
+                    >
+                        <kpi.icon className="h-5 w-5" />
+                        {kpi.value}
+                    </div>
+                    </div>
+
+
+                    {/* Kanan: Data Turunan */}
+                    <div className="flex flex-col gap-1 w-1/2 justify-center">
+                        {breakdownPenyerapan.map((sub) => (
+                            <div
+                            key={sub.title}
+                            className="grid grid-cols-[auto_1fr_auto] items-center gap-2 text-left p-0 rounded-md hover:bg-slate-100/50 dark:hover:bg-slate-700/50 transition-all"
+                            >
+                            {/* Icon */}
+                            <sub.icon className="h-3 w-3 flex-shrink-0" />
+
+                            {/* Judul */}
+                            <span
+                                className={`text-[10px] font-semibold uppercase tracking-wide truncate ${
+                                isLight ? "text-slate-500" : "text-slate-400"
+                                }`}
+                            >
+                                {sub.title}
+                            </span>
+
+                            {/* Nilai (Nominal) */}
+                            <span
+                                className={`text-[11px] font-bold ${sub.color}`}
+                            >
+                                {sub.value}
+                            </span>
+                            </div>
+                        ))}
+                        </div>
                     </div>
                 )}
 
