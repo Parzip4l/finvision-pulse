@@ -22,7 +22,7 @@ export const dashboardData = {
   selisih_HPS_dan_Komitmen: 22135712068,
   static_kpis: {
     totalBudget: 214.9e9,
-    absorption: 0.683, // 68.3%
+    absorption: 0.683,
     absorbed: 146.8e9,
     remaining: 68.1e9,
   }
