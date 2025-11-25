@@ -1,54 +1,86 @@
-# --- Stage 1: Build Frontend (React) ---
+# ==========================================
+# STAGE 1: Build Frontend (React + Vite)
+# ==========================================
 FROM node:20-alpine AS frontend-builder
 WORKDIR /app/frontend
-# Copy package json frontend
+
+# 1. Copy package.json dari ROOT project
 COPY package.json package-lock.json* ./
+# 2. Install dependencies (gabungan frontend & backend jika disatukan di root)
 RUN npm install
-# Copy source code frontend
+
+# 3. Copy SEMUA file project (termasuk folder backend, src, public, dll)
 COPY . .
+
+# 4. Build Frontend
 RUN npm run build
+
+# ==========================================
+# STAGE 2: Setup Backend (Node.js)
+# ==========================================
 FROM node:20-alpine AS backend-builder
 WORKDIR /app/backend
-# Karena di prompt sebelumnya kode backend menyatu di root, kita copy file penting backend
+
+# 1. Copy package.json dari ROOT project
 COPY package.json package-lock.json* ./
+# 2. Install hanya dependencies production
 RUN npm install --production
-COPY server.js . 
 
-COPY .env . 
+# 3. Copy file backend KHUSUS dari folder 'backend/' di host
+#    ke folder saat ini (/app/backend) di container
+COPY backend/server.js .
+COPY backend/.env .
 
-# --- Stage 3: Final Image (Nginx + Node.js) ---
+# ==========================================
+# STAGE 3: Final Image (Nginx + Node.js + Supervisor)
+# ==========================================
 FROM node:20-alpine AS runner
 
-# Install Nginx & Supervisord (untuk jalanin 2 proses)
+# 1. Install Nginx & Supervisor
 RUN apk add --no-cache nginx supervisor
 
-# Setup Nginx
+# 2. Setup Frontend (Nginx)
 WORKDIR /usr/share/nginx/html
-# Hapus default nginx static file
 RUN rm -rf ./*
-# Copy hasil build frontend dari Stage 1
+# Copy hasil build React dari Stage 1
 COPY --from=frontend-builder /app/frontend/dist .
 
-# Setup Backend di Final Image
+# 3. Setup Backend
 WORKDIR /app/backend
-# Copy modules & code backend dari Stage 2
+# Copy hasil setup backend dari Stage 2
 COPY --from=backend-builder /app/backend .
 
-# Setup Konfigurasi Nginx
-COPY nginx/nginx.conf /etc/nginx/http.d/default.conf
+# 4. Copy Konfigurasi Nginx
+#    Sesuai gambar, nginx.conf ada di dalam folder backend/nginx/
+COPY backend/nginx/nginx.conf /etc/nginx/http.d/default.conf
 
-# Setup Supervisord Config
-# Kita buat file konfigurasi on-the-fly atau copy jika ada
+# 5. Setup Supervisord
+#    Membuat konfigurasi untuk menjalankan Backend & Nginx bersamaan
 RUN echo "[supervisord]" > /etc/supervisord.conf && \
     echo "nodaemon=true" >> /etc/supervisord.conf && \
+    echo "user=root" >> /etc/supervisord.conf && \
+    # --- Config Backend ---
     echo "[program:backend]" >> /etc/supervisord.conf && \
-    echo "command=node /app/backend/server.js" >> /etc/supervisord.conf && \
+    echo "command=node server.js" >> /etc/supervisord.conf && \
     echo "directory=/app/backend" >> /etc/supervisord.conf && \
+    echo "autostart=true" >> /etc/supervisord.conf && \
+    echo "autorestart=true" >> /etc/supervisord.conf && \
+    echo "stdout_logfile=/dev/stdout" >> /etc/supervisord.conf && \
+    echo "stdout_logfile_maxbytes=0" >> /etc/supervisord.conf && \
+    echo "stderr_logfile=/dev/stderr" >> /etc/supervisord.conf && \
+    echo "stderr_logfile_maxbytes=0" >> /etc/supervisord.conf && \
+    # --- Config Nginx ---
     echo "[program:nginx]" >> /etc/supervisord.conf && \
-    echo "command=nginx -g 'daemon off;'" >> /etc/supervisord.conf
+    echo "command=nginx -g 'daemon off;'" >> /etc/supervisord.conf && \
+    echo "autostart=true" >> /etc/supervisord.conf && \
+    echo "autorestart=true" >> /etc/supervisord.conf && \
+    echo "stdout_logfile=/dev/stdout" >> /etc/supervisord.conf && \
+    echo "stdout_logfile_maxbytes=0" >> /etc/supervisord.conf && \
+    echo "stderr_logfile=/dev/stderr" >> /etc/supervisord.conf && \
+    echo "stderr_logfile_maxbytes=0" >> /etc/supervisord.conf
 
-# Expose port (Frontend 9060, Backend 5000)
-EXPOSE 9060 5000
+# 6. Expose Port Frontend
+EXPOSE 9060
 
-# Jalankan Supervisord (yang akan menjalankan Nginx & Node.js)
+# 7. Jalankan Supervisor
 CMD ["supervisord", "-c", "/etc/supervisord.conf"]
