@@ -1234,7 +1234,7 @@ const FinanceDashboard = () => {
     const { total: budgetTotals } = departmentBudgetData;
     const { total: onProgressTotals } = staticProcurementData.pengadaan_status;
 
-    const API_URL = '/api';
+    const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
 
     // --- 1. Centralized Data Fetching ---
     useEffect(() => {
@@ -1356,6 +1356,10 @@ const FinanceDashboard = () => {
     const PropsBusdev = category_totals?.BUSDEV?.anggaran_proposal_total || 0;
     const PropsCorcost = category_totals?.CORPORATE_COST?.anggaran_proposal_total || 0;
 
+    const PenyerapanSubsidi = category_totals?.SUBSIDI?.penyerapan_persen || 0;
+    const PenyerapanBusdev = category_totals?.BUSDEV?.penyerapan_persen || 0;
+    const PenyerapanCorcost = category_totals?.CORPORATE_COST?.penyerapan_persen || 0;
+
     // Breakdown Realokasi
     const RealokSubsidi = category_totals?.SUBSIDI?.anggaran_realokasi_2025_total || 0;
     const RealokBusdev = category_totals?.BUSDEV?.anggaran_realokasi_2025_total || 0;
@@ -1399,6 +1403,27 @@ const FinanceDashboard = () => {
         { title: "Busdev", value: formatCurrency(PropsBusdev), icon: Wallet, color: isLight ? 'text-slate-900' : 'text-white' },
         { title: "Corporate Cost", value: formatCurrency(PropsCorcost), icon: Wallet, color: isLight ? 'text-slate-900' : 'text-white' },
     ]
+
+    const breakdownPenyerapanValue = [
+        { 
+            title: "Subsidi",
+            value: Number(PenyerapanSubsidi).toFixed(2) + "%",
+            icon: Wallet,
+            color: isLight ? 'text-slate-900' : 'text-white'
+        },
+        { 
+            title: "Busdev",
+            value: Number(PenyerapanBusdev).toFixed(2) + "%",
+            icon: Wallet,
+            color: isLight ? 'text-slate-900' : 'text-white'
+        },
+        { 
+            title: "Corporate Cost",
+            value: Number(PenyerapanCorcost).toFixed(2) + "%",
+            icon: Wallet,
+            color: isLight ? 'text-slate-900' : 'text-white'
+        },
+    ];
 
     const { realokasi_2025: capexOpexData } = departmentBudgetData.total;
 
@@ -1463,16 +1488,32 @@ const FinanceDashboard = () => {
                                 style={{ borderColor: isLight ? "#e2e8f0" : "#334155" }}
                             >
                                 {/* Card Normal */}
-                                {!isRealisasi && !isSisaAnggaran && !isProposal && !isRealokasi && (
-                                    <div className="flex flex-col items-center justify-center text-center h-full">
-                                        <div className={`text-[11px] font-bold uppercase mb-0.5 ${isLight ? "text-slate-500" : "text-slate-400"
-                                            }`}
-                                        >
-                                            {kpi.title}
+                                {isPenyerapan && (
+                                    <div className={`flex items-center justify p-2 rounded-lg h-full ${isLight}`}>
+                                        {/* Kiri: Nilai Realisasi */}
+                                        <div className="flex flex-col items-center text-center justify-center w-1/2">
+                                            <div className={`text-[11px] font-bold uppercase ml-2 mb-0.5 ${isLight ? "text-slate-500" : "text-slate-400"}`}>
+                                                {kpi.title}
+                                            </div>
+                                            <div className={`text-xl font-extrabold flex items-center justify-center gap-1 ${kpi.color} ${isLight ? "" : "text-white"}`}>
+                                                <kpi.icon className="h-5 w-5" />
+                                                {kpi.value}
+                                            </div>
                                         </div>
-                                        <div className={`text-xl font-bold flex items-center justify-left gap-1.5 ${kpi.color}`} >
-                                            <kpi.icon className="h-4 w-4" />
-                                            {kpi.value}
+
+                                        {/* Kanan: Data Turunan */}
+                                        <div className="flex flex-col gap-1 w-1/2 justify-center">
+                                            {breakdownPenyerapanValue.map((sub) => (
+                                                <div key={sub.title} className="grid grid-cols-[auto_1fr_auto] items-center gap-2 text-left p-0 rounded-md hover:bg-slate-100/50 dark:hover:bg-slate-700/50 transition-all">
+                                                    <sub.icon className="h-3 w-3 flex-shrink-0" />
+                                                    <span className={`text-[10px] font-semibold uppercase tracking-wide truncate ${isLight ? "text-slate-500" : "text-slate-400"}`}>
+                                                        {sub.title}
+                                                    </span>
+                                                    <span className={`text-[11px] font-bold ${sub.color}`}>
+                                                        {sub.value}
+                                                    </span>
+                                                </div>
+                                            ))}
                                         </div>
                                     </div>
                                 )}
