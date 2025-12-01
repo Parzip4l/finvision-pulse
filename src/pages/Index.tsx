@@ -1234,7 +1234,7 @@ const FinanceDashboard = () => {
     const { total: budgetTotals } = departmentBudgetData;
     const { total: onProgressTotals } = staticProcurementData.pengadaan_status;
 
-    const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+    const API_URL = "/api";
 
     // --- 1. Centralized Data Fetching ---
     useEffect(() => {
