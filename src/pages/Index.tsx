@@ -1370,7 +1370,7 @@ const FinanceDashboard = () => {
     const topKpis = [
         { title: "Proposal", value: formatCurrency(kpiProposal), icon: Briefcase, color: isLight ? 'text-slate-900' : 'text-white' },
         { title: "Realokasi", value: formatCurrency(kpiRealokasi), icon: Package, color: isLight ? 'text-slate-900' : 'text-white' },
-        { title: "Realisasi", value: formatCurrency(PenyerapanTotal), icon: Wallet, color: 'text-slate-900' },
+        { title: "Realisasi", value: formatCurrency(kpiRealisasi), icon: Wallet, color: 'text-slate-900' },
         {
             title: "% Penyerapan",
             value: `${Number(kpiPersenPenyerapan).toFixed(2)}%`,
