@@ -1347,6 +1347,7 @@ const FinanceDashboard = () => {
     const capexData = total_lrtj?.realisasi_capex_total || 0;
     const OpexVerif = total_lrtj?.opex_verifikasi_total || 0;
     const OpexPPA = total_lrtj?.opex_ppa_spuk_kk_total || 0;
+    const PenyerapanTotal = category_totals?.SUBSIDI?.penyerapan_total || 0;
 
     const Subsidi = category_totals?.SUBSIDI?.sisa_anggaran_total || 0;
     const Busdev = category_totals?.BUSDEV?.sisa_anggaran_total || 0;
@@ -1369,7 +1370,7 @@ const FinanceDashboard = () => {
     const topKpis = [
         { title: "Proposal", value: formatCurrency(kpiProposal), icon: Briefcase, color: isLight ? 'text-slate-900' : 'text-white' },
         { title: "Realokasi", value: formatCurrency(kpiRealokasi), icon: Package, color: isLight ? 'text-slate-900' : 'text-white' },
-        { title: "Realisasi", value: formatCurrency(kpiRealisasi), icon: Wallet, color: 'text-slate-900' },
+        { title: "Realisasi", value: formatCurrency(PenyerapanTotal), icon: Wallet, color: 'text-slate-900' },
         {
             title: "% Penyerapan",
             value: `${Number(kpiPersenPenyerapan).toFixed(2)}%`,
