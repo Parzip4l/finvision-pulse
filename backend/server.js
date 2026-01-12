@@ -46,13 +46,15 @@ async function getProcurementValues() {
 }
 
 // ==========================================
-// 2. HELPER FINANCE (TIDAK BERUBAH)
+// 2. HELPER FINANCE
 // ==========================================
 function mapRowToData(row, isTotalRow = false) {
+  // Index < 35 (Kolom A - AI) tidak berubah
   const anggaranRealokasiTotal = Number(row[10]) || 0; 
   
-  // PERBAIKAN: Ubah 56 menjadi 55 (Kolom BD)
-  const penyerapanTotal = Number(row[55]) || 0;        
+  // UPDATE: Penyerapan Total (Index lama 55 -> geser jadi 56)
+  // Kolom BD (55) geser ke BE (56)
+  const penyerapanTotal = Number(row[56]) || 0;        
 
   let calculatedPersen = 0;
   if (anggaranRealokasiTotal > 0) {
@@ -72,24 +74,22 @@ function mapRowToData(row, isTotalRow = false) {
     anggaran_realokasi_2025_total: Number(row[10]) || 0,
     realisasi_capex_total: Number(row[23]) || 0,
     
-    // --- PERBAIKAN INDEX DI BAWAH INI ---
-    
-    // Col AK (Index 36)
-    opex_verifikasi_total: Number(row[36]) || 0, 
+    // UPDATE: Opex Verifikasi
+    opex_verifikasi_total: Number(row[37]) || 0, 
 
-    // Col AX (Index 49) -- Mundur dari 50
-    opex_ppa_spuk_kk_total: Number(row[49]) || 0, 
+    // UPDATE: Opex PPA SPUK KK
+    opex_ppa_spuk_kk_total: Number(row[50]) || 0, 
 
-    // Col BA (Index 52) -- Mundur dari 53
-    proforma_total: Number(row[52]) || 0, 
+    // UPDATE: Proforma Total
+    proforma_total: Number(row[53]) || 0, 
 
-    // Col BD (Index 55) -- Mundur dari 56
-    penyerapan_total: Number(row[55]) || 0, 
+    // UPDATE: Penyerapan Total (Sama dengan variabel di atas)
+    penyerapan_total: Number(row[56]) || 0, 
 
     penyerapan_persen: calculatedPersen,
 
-    // Col BH (Index 59) -- Mundur dari 60
-    sisa_anggaran_total: Number(row[59]) || 0 
+    // UPDATE: Sisa Anggaran Total
+    sisa_anggaran_total: Number(row[60]) || 0 
   };
 }
 
